@@ -36,7 +36,7 @@ def create_code():
 # done
 @app.route('/item/create', methods=['POST'])
 def create_item():
-    feature = session['featureescription']
+    feature = session['feature']
     description = request.form['description']
     producer = request.form['producer']
     note = request.form['producer']
