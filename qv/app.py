@@ -24,19 +24,14 @@ def index():
     basic['all-vaild'] = len(Item.query.filter(Item.status!=0).all())
     items = [ _transfer_item_info_to_dict(item)
              for item in Item.query.all()]
-    return render_template('item-create.html', basic=basic, items=items)
-
-# done
-@app.route('/code/create')
-def create_code():
     verify_code = md5(os.urandom(50))
-    session['feature'] = verify_code
-    return _build_qrcode(verify_code)
+    return render_template('item-create.html', basic=basic, \
+                           items=items, feature=verify_code)
 
 # done
 @app.route('/item/create', methods=['POST'])
 def create_item():
-    feature = session['feature']
+    feature = request.form['feature']
     number = request.form['number']
     description = request.form['description']
     producer = request.form['producer']

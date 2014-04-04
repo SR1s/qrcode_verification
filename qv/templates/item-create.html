@@ -21,6 +21,7 @@
         <div class='row'>
           <div class='col-md-7'>
             <form action='{{ url_for("create_item") }}' class='form' id='create_item' method='POST'>
+              <input type='hidden' name='feature' value='{{ feature }}'/>
               <div class="form-group">
                 <label>商品编号</label>
                 <input type="text" class="form-control" name='number' placeholder="输入商品编号">
@@ -40,7 +41,7 @@
             </form>
           </div>
           <div class='col-md-5'>
-            <img src='{{ url_for("create_code") }}' width='200' height='200'/>
+            <img src='/code/{{ feature }}' width='200' height='200'/>
           </div>
         </div>
       </div>
