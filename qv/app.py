@@ -35,13 +35,12 @@ def create_item():
     number = request.form['number']
     description = request.form['description']
     producer = request.form['producer']
-    note = request.form['producer']
+    note = request.form['note']
     
     item = Item(feature=feature, number=number, note=note, \
                 description=description, producer=producer)
     db.session.add(item)
     db.session.commit()
-    session['feature'] = None
     return redirect(url_for('index'))
 
 # done
