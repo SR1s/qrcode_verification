@@ -71,10 +71,10 @@
         {% for item in items %}
         <tr class='success' align='center'>
           <td width='20%'>二维码</td>
-          <td colspan='3'>二维码信息</td>
+          <td colspan='4'>二维码信息</td>
         </tr>
         <tr>
-          <td width='22%' rowspan='4'>
+          <td width='22%' rowspan='3'>
               <img src='{{ url_for("get_code", qrcode_feature=item.feature) }}' width='100' height='100'/>
           </td>
           <td width='20%'>商品编号</td>
