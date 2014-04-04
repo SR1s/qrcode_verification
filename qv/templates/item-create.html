@@ -1,0 +1,103 @@
+{% extends "basic.html" %}
+{% block bodyleft %}
+<div class='panel panel-info'>
+  <div class="panel-heading">基本信息</div>
+  <div class="panel-body">
+    <p>验证码数量：{{ basic['all-items'] }}</p>
+    <p>已验证数量：{{ basic['all-vaild'] }}</p>
+    <hr/>
+    <button class='btn btn-success' data-toggle="modal" data-target="#myModal">创建新验证码</button>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">创建新验证码</h4>
+      </div>
+      <div class="modal-body">
+        <div class='row'>
+          <div class='col-md-7'>
+            <form action='{{ url_for("create_item") }}' class='form' id='create_item' method='POST'>
+              <div class="form-group">
+                <label>商品编号</label>
+                <input type="text" class="form-control" name='number' placeholder="输入商品编号">
+              </div>
+              <div class="form-group">
+                <label>商品信息</label>
+                <textarea class="form-control" name='description' placeholder="输入商品信息"></textarea>
+              </div>
+              <div class="form-group">
+                <label>生产商</label>
+                <input type="text" class="form-control" name='producer' placeholder="输入生产商">
+              </div>
+              <div class="form-group">
+                <label>附加信息</label>
+                <textarea class="form-control" name='note' placeholder="输入附加信息"></textarea>
+              </div>
+            </form>
+          </div>
+          <div class='col-md-5'>
+            <img src='{{ url_for("create_code") }}' width='200' height='200'/>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+         <button type="button" class="btn btn-primary" onClick='submit_form()'>创建</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+  function submit_form(){
+    console.log($('form#create_item'));
+    $('form#create_item').submit();
+  }
+</script>
+
+{% endblock %}
+
+{% block bodyright %}
+<div class="content">
+  <h1>二维验证码列表</h1>
+  <hr/>
+    <table class="table table-bordered table-hover table-condensed">
+      <thead>
+      </thead>
+      <tbody align='center'>
+        {% for item in items %}
+        <tr class='success' align='center'>
+          <td width='20%'>二维码</td>
+          <td colspan='4'>二维码信息</td>
+        </tr>
+        <tr>
+          <td width='22%' rowspan='4'>
+              <img src='{{ url_for("get_code", qrcode_feature=item.feature) }}' width='100' height='100'/>
+          </td>
+          <td width='20%'>商品编号</td>
+          <td width='20%'>{{ item['number'] }}</td>
+          <td width='20%'>商品编号</td>
+          <td width='20%'>{{ item['description'] }}</td>
+        </tr>
+        <tr>
+          <td width='20%'>生产商</td>
+          <td width='20%'>{{ item['producer'] }}</td>
+          <td width='20%'>附加信息</td>
+          <td width='20%'>{{ item['note'] }}</td>
+        </tr>
+        <tr>
+          <td width='20%'>二维码状态</td>
+          <td colspan='3'>{{ item['status'] }}</td>
+        </tr>
+        {% else %}
+        <tr align='center'>
+          <td colspan='4'>暂无记录</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+{% endblock %}
