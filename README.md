@@ -13,6 +13,12 @@ QR Code Verification System
 
 ---
 
+# Congigure
+1. run db_rebuild.py to build database
+1. See the note avoid security cause problems 
+
+---
+
 # Note
 
 Remeber to grant user who start the application privilege to write the database file.
